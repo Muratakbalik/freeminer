@@ -1,0 +1,53 @@
+name: APK Uret
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu al
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Java kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Android SDK kur
+        uses: android-actions/setup-android@v3
+
+      - name: Bagimliliklari yukle
+        run: npm install
+
+      - name: Web dosyalarini hazirla
+        run: |
+          mkdir -p www
+          cp index.html style.css game.js www/
+
+      - name: Android platformu ekle
+        run: npx cap add android
+
+      - name: Senkronize et
+        run: npx cap sync android
+
+      - name: APK derle
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: APK yukle
+        uses: actions/upload-artifact@v4
+        with:
+          name: coinminefree-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
