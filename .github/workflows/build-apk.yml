@@ -37,6 +37,9 @@ jobs:
       - name: Android platformu ekle
         run: npx cap add android
 
+      - name: Uygulama simgesi olustur
+        run: npx --yes @capacitor/assets generate --android --assetPath . --iconBackgroundColor '#2a1e4e' --iconBackgroundColorDark '#2a1e4e'
+
       - name: Senkronize et
         run: npx cap sync android
 
