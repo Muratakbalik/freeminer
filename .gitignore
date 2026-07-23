@@ -1,0 +1,12 @@
+# Bagimliliklar ve uretilen klasorler (bunlar bulutta otomatik olusur)
+node_modules/
+www/
+android/
+ios/
+
+# Isletim sistemi / editor dosyalari
+.DS_Store
+Thumbs.db
+
+# Yerel APK ciktilari
+*.apk

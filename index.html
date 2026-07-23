@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a1030" />
+  <title>CoinMineFree</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Tekrar kullanılan SVG ikonlar (her cihazda görünür) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fff1b8" />
+        <stop offset="45%" stop-color="#ffcf3f" />
+        <stop offset="100%" stop-color="#e08a00" />
+      </linearGradient>
+      <symbol id="coin" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="22" fill="url(#goldGrad)" stroke="#b96e00" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="15" fill="none" stroke="#b96e00" stroke-width="2" opacity="0.55"/>
+        <path d="M24 13 l3 8 h8 l-6.5 5 l2.5 8 l-7-5 l-7 5 l2.5 -8 l-6.5 -5 h8 z" fill="#fff6cf" opacity="0.9"/>
+        <ellipse cx="18" cy="16" rx="5" ry="3" fill="#ffffff" opacity="0.5"/>
+      </symbol>
+      <symbol id="pick" viewBox="0 0 48 48">
+        <path d="M6 40 L28 18" stroke="#c9a06a" stroke-width="4" stroke-linecap="round"/>
+        <path d="M8 8 C20 10 30 20 40 14 C34 26 20 30 14 22 Z" fill="#9aa4ad"/>
+        <path d="M8 8 C20 10 30 20 40 14" fill="none" stroke="#6b7076" stroke-width="2"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Açılış (splash) ekranı -->
+  <div id="splash">
+    <svg class="splash-coin"><use href="#coin" xlink:href="#coin"></use></svg>
+    <h1 class="splash-title">CoinMineFree</h1>
+    <p class="splash-sub">Kaz, kazan, zengin ol!</p>
+    <div class="splash-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <div id="app">
+    <!-- Üst bilgi çubuğu -->
+    <header id="topbar">
+      <div class="stat">
+        <svg class="ic ic-gold"><use href="#coin" xlink:href="#coin"></use></svg>
+        <span id="goldCount">0</span>
+      </div>
+      <div class="stat small">
+        <svg class="ic"><use href="#pick" xlink:href="#pick"></use></svg>
+        <span id="perSecond">0</span>/sn
+      </div>
+    </header>
+
+    <!-- Oyun ekranı -->
+    <main id="screen-game" class="screen active">
+      <!-- Ortam / seviye göstergesi -->
+      <div id="tierBanner">
+        <div class="tier-top">
+          <span id="tierScene">🪨</span>
+          <span id="tierName">Taş Mağara</span>
+        </div>
+        <div class="tier-bar"><div id="tierFill"></div></div>
+        <div id="tierHint" class="tier-hint"></div>
+      </div>
+
+      <div class="tap-info">
+        <span>Tık başına: <b id="perTap">1</b></span>
+        <svg class="ic ic-sm"><use href="#coin" xlink:href="#coin"></use></svg>
+      </div>
+
+      <button id="tapButton" class="tap-button" aria-label="Kaz">
+        <span class="tap-shine"></span>
+        <svg class="tap-pick"><use href="#pick" xlink:href="#pick"></use></svg>
+        <span class="tap-label">KAZ!</span>
+      </button>
+
+      <div id="floaters"></div>
+    </main>
+
+    <!-- Yükseltmeler ekranı -->
+    <section id="screen-upgrades" class="screen">
+      <h2 class="screen-title">Yükseltmeler</h2>
+      <div id="upgradeList" class="card-list"></div>
+    </section>
+
+    <!-- Mağaza ekranı -->
+    <section id="screen-shop" class="screen">
+      <h2 class="screen-title">Mağaza</h2>
+      <p class="shop-note">✨ Bu oyunda reklam yoktur — sadece isteğe bağlı paketler (şimdilik demo)</p>
+      <div id="shopList" class="card-list"></div>
+    </section>
+
+    <!-- Sıralama ekranı -->
+    <section id="screen-leaderboard" class="screen">
+      <h2 class="screen-title">Sıralama</h2>
+      <div class="name-row">
+        <input id="nameInput" type="text" maxlength="14" placeholder="Takma adın" />
+        <button id="saveName" class="buy-btn">Kaydet</button>
+      </div>
+      <p class="shop-note">Toplam kazanılan altına göre sıralama</p>
+      <div id="leaderList" class="card-list"></div>
+    </section>
+
+    <!-- Alt menü -->
+    <nav id="tabbar">
+      <button class="tab active" data-screen="game">
+        <span class="tab-ic">⛏️</span><small>Oyun</small>
+      </button>
+      <button class="tab" data-screen="upgrades">
+        <span class="tab-ic">⬆️</span><small>Yükselt</small>
+      </button>
+      <button class="tab" data-screen="leaderboard">
+        <span class="tab-ic">🏆</span><small>Sıralama</small>
+      </button>
+      <button class="tab" data-screen="shop">
+        <span class="tab-ic">🛒</span><small>Mağaza</small>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Bildirim balonu -->
+  <div id="toast"></div>
+
+  <script src="game.js"></script>
+</body>
+</html>
