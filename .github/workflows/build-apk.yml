@@ -40,6 +40,22 @@ jobs:
       - name: Uygulama simgesi olustur
         run: npx --yes @capacitor/assets generate --android --assetPath . --iconBackgroundColor '#2a1e4e' --iconBackgroundColorDark '#2a1e4e'
 
+      - name: Acilis native splash sadelestir
+        run: |
+          RES=android/app/src/main/res
+          find "$RES" -name 'splash.png' -delete || true
+          find "$RES" -name 'splashscreen.png' -delete || true
+          mkdir -p "$RES/drawable"
+          printf '%s\n' \
+            '<?xml version="1.0" encoding="utf-8"?>' \
+            '<layer-list xmlns:android="http://schemas.android.com/apk/res/android">' \
+            '    <item>' \
+            '        <shape android:shape="rectangle">' \
+            '            <solid android:color="#0F0A1E"/>' \
+            '        </shape>' \
+            '    </item>' \
+            '</layer-list>' > "$RES/drawable/splash.xml"
+
       - name: Senkronize et
         run: npx cap sync android
 
